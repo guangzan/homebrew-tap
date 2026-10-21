@@ -1,23 +1,22 @@
 class Things < Formula
   desc "Production-grade, AI-first Things 3 CLI and MCP server"
   homepage "https://github.com/guangzan/things"
-  version "0.1.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/guangzan/things/releases/download/v0.1.0/things-aarch64-apple-darwin.tar.xz"
-      sha256 "aa4a752a98f52bffb9045d2853705039b482926af4dc6a5ebcd4a56def378a9c"
+      url "https://github.com/guangzan/things/releases/download/v0.1.2/things-aarch64-apple-darwin.tar.xz"
+      sha256 "c2d4b8015577db23df3156fcc3a7cdcd5c7fa133f709104a7f6873e1153592f2"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/guangzan/things/releases/download/v0.1.0/things-x86_64-apple-darwin.tar.xz"
-      sha256 "edcb672f62aa67e369efa8ce13be8518be2889e0f04dee513e3d4f922b87ed07"
+      url "https://github.com/guangzan/things/releases/download/v0.1.2/things-x86_64-apple-darwin.tar.xz"
+      sha256 "5f2bd04f90ad6bdde92a150e0d39a837ae6b71dffa5691bdb92307573e225a45"
     end
   end
   license "MIT"
 
   BINARY_ALIASES = {
     "aarch64-apple-darwin": {},
-    "x86_64-apple-darwin":  {},
-  }.freeze
+    "x86_64-apple-darwin": {}
+  }
 
   def target_triple
     cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
@@ -51,5 +50,9 @@ class Things < Formula
     # Install any leftover files in pkgshare; these are probably config or
     # sample files.
     pkgshare.install(*leftover_contents) unless leftover_contents.empty?
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/things --version")
   end
 end
