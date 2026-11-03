@@ -12,6 +12,7 @@ class Things < Formula
     end
   end
   license "MIT"
+  deprecate! date: "2026-11-03", because: "renamed to things-ai; use `brew install guangzan/tap/things-ai`"
 
   BINARY_ALIASES = {
     "aarch64-apple-darwin": {},
